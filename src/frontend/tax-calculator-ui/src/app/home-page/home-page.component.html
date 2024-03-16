@@ -1,0 +1,10 @@
+<div class="container">    
+  <form class="inputForm">
+      <mat-form-field class="example-full-width">
+        <mat-label>Gross Annual Salary</mat-label>
+        <input [(ngModel)]="salary" name="salary" matInput placeholder="Number">
+      </mat-form-field>
+      <button type="button" class="submitBtn" (click)="calculateTax()" mat-stroked-button>Calculate</button>
+  </form>
+</div>
+<app-tax-details [taxDetails]="taxDetails"></app-tax-details>

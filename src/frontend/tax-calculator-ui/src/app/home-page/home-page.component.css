@@ -1,0 +1,19 @@
+.container{
+    display: flex;
+    margin: auto;
+    flex-direction: row;
+    justify-content: center;
+    height: 25%;
+    width: 50%;
+    border: 1px solid black;
+    margin-top: 2rem;
+    align-items: center;
+}
+
+.inputForm{
+    margin: 5rem; 
+}
+
+.submitBtn{
+    margin-left: 1rem;
+}
