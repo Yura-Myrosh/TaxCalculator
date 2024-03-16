@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\TaxCalculator.Common\TaxCalculator.Common.csproj" />
+    <ProjectReference Include="..\TaxCalculator.DAL\TaxCalculator.DAL.csproj" />
+    <ProjectReference Include="..\TaxCalculator.DbModels\TaxCalculator.DbModels.csproj" />
+  </ItemGroup>
+
+</Project>
