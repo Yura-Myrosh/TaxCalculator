@@ -1,0 +1,10 @@
+<div class="list-container" *ngIf="taxDetails">
+    <mat-list role="list">
+      <mat-list-item role="listitem">Gross Annual Salary: &pound;{{taxDetails.grossAnnualSalary | number:'1.0-2'}}</mat-list-item>
+      <mat-list-item role="listitem">Gross Monthly Salary: &pound;{{taxDetails.grossMonthlySalary | number:'1.0-2'}}</mat-list-item>
+      <mat-list-item role="listitem">Net Annual Salary: &pound;{{taxDetails.netAnnualSalary | number:'1.0-2'}}</mat-list-item>
+      <mat-list-item role="listitem">Net Monthly Salary: &pound;{{taxDetails.netMonthlySalary | number:'1.0-2'}}</mat-list-item>
+      <mat-list-item role="listitem">Annual Tax Paid: &pound;{{taxDetails.annualTaxPaid | number:'1.0-2'}}</mat-list-item>
+      <mat-list-item role="listitem">Monthly Tax Paid: &pound;{{taxDetails.monthlyTaxPaid | number:'1.0-2'}}</mat-list-item>
+    </mat-list>
+</div>
