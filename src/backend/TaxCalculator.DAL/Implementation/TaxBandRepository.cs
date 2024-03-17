@@ -8,11 +8,8 @@ namespace TaxCalculator.DAL.Implementation
 {
     public class TaxBandRepository : Repository<TaxBand, TaxCalculatorDbContext>, ITaxBandRepository
     {
-        private readonly TaxCalculatorDbContext _context;
-
         public TaxBandRepository(TaxCalculatorDbContext context) : base(context)
         {
-            _context = context;
         }
 
         public async Task<IEnumerable<TaxBand>> GetTaxBandsToCalculateByLowerBoundAsync(int valueToCompare)
