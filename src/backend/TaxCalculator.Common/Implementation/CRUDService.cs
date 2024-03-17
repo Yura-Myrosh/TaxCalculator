@@ -32,10 +32,11 @@ namespace TaxCalculator.Common.Implementation
             await _repository.SaveAsync();
         }
 
-        public Task DeleteByIdAsync(Guid id)
+        public async Task DeleteByIdAsync(Guid id)
         {
             _validator.ValidateId(id);
-            return _repository.DeleteByIdAsync(id);
+            await _repository.DeleteByIdAsync(id);
+            await _repository.SaveAsync();
         }
 
         public async Task<T> ReadItemByIdAsync(Guid id)

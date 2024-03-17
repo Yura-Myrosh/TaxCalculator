@@ -1,4 +1,4 @@
-﻿using TaxCalculator.Common.Models;
+﻿using TaxCalculator.Common.Attributes;
 
 namespace TaxCalculator.BL.Validator
 {
