@@ -10,11 +10,20 @@ namespace TaxCalculator.BL.Validator
         {
             _errorManager = errorManager;
         }
+
         public void ValidateSalary(int salary)
         {
             if (salary < 0)
             {
                 throw _errorManager.BuildException(TaxBandErrorEnum.InvalidSalaryValue);
+            }
+        }
+
+        public void ValidateBounds(int lowerBound, int upperBound)
+        {
+            if (lowerBound >= upperBound)
+            {
+                throw _errorManager.BuildException(TaxBandErrorEnum.InvalidBounds);
             }
         }
     }

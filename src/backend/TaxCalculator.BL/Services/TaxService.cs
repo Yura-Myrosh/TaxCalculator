@@ -51,6 +51,8 @@ namespace TaxCalculator.BL.Services
 
         public async Task<InternalTaxBand> CreateTaxBandAsync(InternalTaxBand taxBand)
         {
+            _taxBandValidator.ValidateBounds(taxBand.LowerBound, taxBand.UpperBound);
+
             var itemToCreate = _mapper.Map<TaxBand>(taxBand);
 
             await _taxBandCRUDService.CreateAsync(itemToCreate);
@@ -60,6 +62,8 @@ namespace TaxCalculator.BL.Services
 
         public async Task<InternalTaxBand> UpdateTaxBandAsync(Guid id, InternalTaxBand taxBand)
         {
+            _taxBandValidator.ValidateBounds(taxBand.LowerBound, taxBand.UpperBound);
+
             taxBand.Id = id;
             var itemToUpdate = _mapper.Map<TaxBand>(taxBand);
 

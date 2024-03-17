@@ -5,8 +5,13 @@ namespace TaxCalculator.BL.Validator
     public enum TaxBandErrorEnum
     {
         #region BadRequest
+
         [ErrorMappings(System.Net.HttpStatusCode.BadRequest, "Salary couldn't be less than zero")]
-        InvalidSalaryValue
+        InvalidSalaryValue,
+
+        [ErrorMappings(System.Net.HttpStatusCode.BadRequest, "Upper bound couldn't be less than lower.")]
+        InvalidBounds
+
         #endregion
     }
 }

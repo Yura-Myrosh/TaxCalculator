@@ -8,6 +8,7 @@ namespace TaxCalculator.BL.Validator
 {
     public interface ITaxBandValidator
     {
+        void ValidateBounds(int lowerBound, int upperBound);
         public void ValidateSalary(int salary);
     }
 }

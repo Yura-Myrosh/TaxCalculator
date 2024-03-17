@@ -34,5 +34,27 @@ namespace TaxCalculator.BL.Tests
             Assert.Contains("Salary couldn't be less than zero", exception.Message);
             Assert.Contains("InvalidSalaryValue", exception.Error.Code);
         }
+
+        [Fact]
+        public void ValidateBounds_WithValidBounds_DoesNotThrowException()
+        {
+            int lowerBound = 0;
+            int upperBound = 100;
+
+            var exception = Record.Exception(() => _taxBandValidator.ValidateBounds(lowerBound, upperBound));
+            Assert.Null(exception);
+        }
+
+        [Fact]
+        public void ValidateBounds_WithInvalidBounds_ThrowsApiException()
+        {
+            int lowerBound = 100;
+            int upperBound = 100;
+
+            var exception = Assert.Throws<ApiException>(() => _taxBandValidator.ValidateBounds(lowerBound, upperBound));
+
+            Assert.Equal(HttpStatusCode.BadRequest, exception.HttpStatusCode);
+            Assert.Contains("Upper bound couldn't be less than lower.", exception.Message);
+        }
     }
 }

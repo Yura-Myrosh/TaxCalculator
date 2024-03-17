@@ -78,8 +78,9 @@ namespace TaxCalculator.BL.Tests.Services
         [Fact]
         public async Task CreateTaxBandAsync_CreatesAndReturnsTaxBand()
         {
-            var internalTaxBand = new InternalTaxBand();
-            var taxBand = new TaxBand();
+            var internalTaxBand = new InternalTaxBand() { LowerBound = 0, UpperBound = 1};
+            var taxBand = new TaxBand() { LowerBound = 0, UpperBound = 1 };
+
             _mapper.Setup(m => m.Map<TaxBand>(internalTaxBand)).Returns(taxBand);
 
             var result = await _taxService.CreateTaxBandAsync(internalTaxBand);
@@ -93,8 +94,8 @@ namespace TaxCalculator.BL.Tests.Services
         public async Task UpdateTaxBandAsync_UpdatesAndReturnsTaxBand()
         {
             var id = Guid.NewGuid();
-            var internalTaxBand = new InternalTaxBand();
-            var taxBand = new TaxBand();
+            var internalTaxBand = new InternalTaxBand() { LowerBound = 0, UpperBound = 1 };
+            var taxBand = new TaxBand() { LowerBound = 0, UpperBound = 1 };
             _mapper.Setup(m => m.Map<TaxBand>(internalTaxBand)).Returns(taxBand);
 
             var result = await _taxService.UpdateTaxBandAsync(id, internalTaxBand);
