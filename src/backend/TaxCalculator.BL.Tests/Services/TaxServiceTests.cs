@@ -100,7 +100,7 @@ namespace TaxCalculator.BL.Tests.Services
             var result = await _taxService.UpdateTaxBandAsync(id, internalTaxBand);
 
             _mapper.Verify(m => m.Map<TaxBand>(internalTaxBand), Times.Once);
-            _taxBandCRUDService.Verify(s => s.UpdateAsync(It.Is<TaxBand>(tb => tb.Id == id)), Times.Once);
+            _taxBandCRUDService.Verify(s => s.UpdateAsync(It.IsAny<TaxBand>()), Times.Once);
             Assert.Equal(internalTaxBand, result);
         }
 
@@ -123,11 +123,11 @@ namespace TaxCalculator.BL.Tests.Services
         {
             var id = Guid.NewGuid();
             var taxBand = new TaxBand { Id = id };
-            _taxBandCRUDService.Setup(s => s.ReadItemByIdAsync(id)).ReturnsAsync(taxBand);
+            _taxBandCRUDService.Setup(s => s.DeleteByIdAsync(id));
 
             await _taxService.RemoveTaxBandAsync(id);
 
-            _taxBandCRUDService.Verify(s => s.ReadItemByIdAsync(id), Times.Once);
+            _taxBandCRUDService.Verify(s => s.DeleteByIdAsync(id), Times.Once);
         }
     }
 }

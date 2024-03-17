@@ -17,7 +17,7 @@ namespace TaxCalculator.Common.Implementation
             if (id == Guid.Empty)
             {
                 throw _errorManager.BuildException(CommonErrorEnum.EmptyResourceId);
-            };
+            }
         }
 
         public void ValidateItemAfterRead(T? result)

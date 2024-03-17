@@ -60,9 +60,8 @@ namespace TaxCalculator.BL.Services
 
         public async Task<InternalTaxBand> UpdateTaxBandAsync(Guid id, InternalTaxBand taxBand)
         {
+            taxBand.Id = id;
             var itemToUpdate = _mapper.Map<TaxBand>(taxBand);
-
-            itemToUpdate.Id = id;
 
             await _taxBandCRUDService.UpdateAsync(itemToUpdate);
 
@@ -80,7 +79,7 @@ namespace TaxCalculator.BL.Services
 
         public async Task RemoveTaxBandAsync(Guid id)
         {
-            await _taxBandCRUDService.ReadItemByIdAsync(id);
+            await _taxBandCRUDService.DeleteByIdAsync(id);
         }
 
         private static decimal GetAnnualTaxPaid(int salary, IEnumerable<TaxBand> taxBands)

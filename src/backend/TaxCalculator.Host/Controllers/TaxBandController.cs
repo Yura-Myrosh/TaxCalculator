@@ -64,7 +64,6 @@ namespace TaxCalculator.Host.Controllers
         [SwaggerResponse(statusCode: 503, type: typeof(ServiceErrorResponce), description: "Server error.")]
         public async Task<IActionResult> TaxBandUpdate([FromRoute(Name = "id")] [Required] Guid id, [FromBody] InternalTaxBand taxBandToUpdate, CancellationToken cancellationToken)
         {
-
             var result = await _taxService.UpdateTaxBandAsync(id, taxBandToUpdate);
 
             await _cache.EvictByTagAsync(Constants.SALARY_TAG, cancellationToken);
@@ -110,7 +109,7 @@ namespace TaxCalculator.Host.Controllers
         [HttpDelete]
         [Route("/taxcalculator/v1/{id}")]
         [Consumes("application/json")]
-        [SwaggerResponse(statusCode: 200, description: "The request has succeeded.")]
+        [SwaggerResponse(statusCode: 204, description: "The request has succeeded.")]
         [SwaggerResponse(statusCode: 400, type: typeof(ServiceErrorResponce), description: "The server could not understand the request due to invelid syntax.")]
         [SwaggerResponse(statusCode: 404, type: typeof(ServiceErrorResponce), description: "The server could not find the requested resource.")]
         [SwaggerResponse(statusCode: 500, type: typeof(ServiceErrorResponce), description: "Server error.")]
@@ -123,7 +122,7 @@ namespace TaxCalculator.Host.Controllers
             await _cache.EvictByTagAsync(Constants.SALARY_TAG, cancellationToken);
             await _cache.EvictByTagAsync(Constants.TAXBAND_TAG, cancellationToken);
 
-            return Ok();
+            return new StatusCodeResult(StatusCodes.Status204NoContent);
         }
     }
 }
