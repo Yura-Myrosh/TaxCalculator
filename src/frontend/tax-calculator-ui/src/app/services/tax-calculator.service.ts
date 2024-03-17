@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Observable, throwError } from 'rxjs'; // Import throwError
 import { catchError, tap } from 'rxjs/operators';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { TaxDetails } from '../tax-details';
@@ -10,18 +10,16 @@ import { BASE_URL } from '../constants';
 })
 export class TaxCalculatorService {
 
-  serviceUrl = "/taxcalculator"
-  constructor(
-    private http: HttpClient,
-    ) { }
+  serviceUrl = "/taxcalculator/v1";
+  constructor(private http: HttpClient) { }
 
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
 
-  getTaxDetails(salary : Number): Observable<TaxDetails> {
-    const methodUrl = BASE_URL + this.serviceUrl + `/$calculateTaxes?salary=${salary}`;
-    return this.http.get<TaxDetails>(methodUrl)
+  getTaxDetails(salary: Number): Observable<TaxDetails> {
+    const methodUrl = `${BASE_URL}${this.serviceUrl}/$calculateTaxes/${salary}`;
+    return this.http.get<TaxDetails>(methodUrl, this.httpOptions)
       .pipe(
         tap(_ => this.log('fetched tax details')),
         catchError(this.handleError<TaxDetails>('getTaxDetails'))
@@ -32,7 +30,7 @@ export class TaxCalculatorService {
     return (error: any): Observable<T> => {
       console.error(error);
       this.log(`${operation} failed: ${error.message}`);
-      return of(result as T);
+      return throwError(() => error);
     };
   }
   
