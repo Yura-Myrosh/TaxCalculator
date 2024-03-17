@@ -5,7 +5,7 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TaxCalculator.Common.Models
+namespace TaxCalculator.Common.Attributes
 {
     [AttributeUsage(AttributeTargets.All, AllowMultiple = false)]
     public class ErrorMappingsAttribute : Attribute
