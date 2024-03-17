@@ -18,45 +18,51 @@ namespace TaxCalculator.Common.Implementation
             _repository = repository;
             _validator = validator;
         }
-        public Task CreateAsync(T item)
+        public async Task CreateAsync(T item)
         {
-            _validator.ValidateItem(item);
-            return _repository.CreateAsync(item);
+            _validator.ValidateItemBeforeWrite(item);
+            await _repository.CreateAsync(item);
+            await _repository.SaveAsync();
         }
 
-        public void Delete(T item)
+        public async Task DeleteAsync(T item)
         {
-            _validator.ValidateItem(item);
+            _validator.ValidateItemBeforeRemove(item);
             _repository.Delete(item);
+            await _repository.SaveAsync();
         }
 
         public Task DeleteByIdAsync(Guid id)
         {
+            _validator.ValidateId(id);
             return _repository.DeleteByIdAsync(id);
         }
 
-        public async Task<T> ReadItemById(Guid id)
+        public async Task<T> ReadItemByIdAsync(Guid id)
         {
+            _validator.ValidateId(id);
+
             var result = await _repository.GetItemAsync(id);
 
-            _validator.ValidateItem(result);
+            _validator.ValidateItemAfterRead(result);
 
             return result;
         }
 
-        public async Task<IEnumerable<T>> ReadItems()
+        public async Task<IEnumerable<T>> ReadItemsAsync()
         {
             var result = await _repository.GetItemsAsync();
 
-            _validator.ValidateReadItems(result);
+            _validator.ValidateItemsAfterRead(result);
 
             return result;
         }
 
-        public void Update(T model)
+        public async Task UpdateAsync(T model)
         {
-            _validator.ValidateItem(model);
+            _validator.ValidateItemBeforeWrite(model);
             _repository.Update(model);
+            await _repository.SaveAsync();
         }
     }
 }

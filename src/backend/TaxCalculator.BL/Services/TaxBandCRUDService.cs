@@ -22,7 +22,7 @@ namespace TaxCalculator.BL.Services
         {
             var taxBands = await _unitOfWork.TaxBandRepository.GetTaxBandsToCalculateByLowerBoundAsync(lowerBound);
 
-            _validator.ValidateReadItems(taxBands);
+            _validator.ValidateItemsAfterRead(taxBands);
 
             return taxBands;
         }

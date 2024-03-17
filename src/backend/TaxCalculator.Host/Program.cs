@@ -6,6 +6,9 @@ using TaxCalculator.Extensions;
 using TaxCalculator.Host.Filters;
 using NLog.Web;
 using System.Diagnostics;
+using AutoMapper;
+using TaxCalculator.BL.Mappings;
+using TaxCalculator.Common.Models;
 
 namespace TaxCalculator.Host
 {
@@ -16,6 +19,7 @@ namespace TaxCalculator.Host
             AppContext.SetSwitch("Microsoft.AspNetCore.Mvc.NewtonJson.EnableSkipHandledError", true);
 
             var builder = WebApplication.CreateBuilder(args);
+
             RegisterDefaultServices(args, builder);
             RegisterSpecificServices(builder);
             AddCors(builder);
@@ -27,6 +31,7 @@ namespace TaxCalculator.Host
             app.UseSwaggerUI();
             app.UseHttpsRedirection();
             app.UseAuthorization();
+            app.UseOutputCache();
             app.MapControllers();
             ConfigureLog(app);
             app.Run();
@@ -45,24 +50,6 @@ namespace TaxCalculator.Host
             builder.Host.UseNLog();
         }
 
-        private static void AddCors(WebApplicationBuilder builder)
-        {
-            builder.Services.AddCors(options =>
-            {
-                var corsSettings = builder.Configuration.GetSection("Cors");
-                var allowedOrigins = corsSettings.GetSection("AllowedOrigins").Get<string[]>();
-                var allowedMethods = corsSettings.GetSection("AllowedMethods").Get<string[]>();
-                var allowedHeaders = corsSettings.GetSection("AllowedHeaders").Get<string[]>();
-
-                options.AddPolicy("ConfiguredCorsPolicy", builder =>
-                {
-                    builder.WithOrigins(allowedOrigins)
-                           .WithMethods(allowedMethods)
-                           .WithHeaders(allowedHeaders);
-                });
-            });
-        }
-
         private static void RegisterSpecificServices(WebApplicationBuilder builder)
         {
             var connectionString = builder.Configuration["TaxCalculatorConnectionString"]!;
@@ -73,6 +60,24 @@ namespace TaxCalculator.Host
             builder.Services.AddScoped<ITaxBandCRUDService, TaxBandCRUDService>();
             builder.Services.AddScoped<ITaxService, TaxService>();
             builder.Services.AddScoped<ITaxBandValidator, TaxBandValidator>();
+            builder.Services.AddAutomapperRegistration(MappingProfiles());
+
+            builder.Services.AddOutputCache(opt =>
+            {
+                opt.AddPolicy(Constants.SALARY_POLICY_NAME, policy =>
+                {
+                    policy.Expire(TimeSpan.FromMinutes(20));
+                    policy.SetVaryByRouteValue("salary");
+                    policy.Tag(Constants.SALARY_TAG);
+                });
+
+                opt.AddPolicy(Constants.TAXBAND_POLICY_NAME, policy =>
+                {
+                    policy.Expire(TimeSpan.FromMinutes(30));
+                    policy.SetVaryByRouteValue("id");
+                    policy.Tag(Constants.TAXBAND_TAG);
+                });
+            });
 
             builder.Services.AddLogging();
 
@@ -97,5 +102,25 @@ namespace TaxCalculator.Host
 
             return app;
         }
+
+        private static void AddCors(WebApplicationBuilder builder)
+        {
+            builder.Services.AddCors(options =>
+            {
+                var corsSettings = builder.Configuration.GetSection("Cors");
+                var allowedOrigins = corsSettings.GetSection("AllowedOrigins").Get<string[]>();
+                var allowedMethods = corsSettings.GetSection("AllowedMethods").Get<string[]>();
+                var allowedHeaders = corsSettings.GetSection("AllowedHeaders").Get<string[]>();
+
+                options.AddPolicy("ConfiguredCorsPolicy", builder =>
+                {
+                    builder.WithOrigins(allowedOrigins)
+                           .WithMethods(allowedMethods)
+                           .WithHeaders(allowedHeaders);
+                });
+            });
+        }
+
+        private static Profile[] MappingProfiles() => new Profile[] { new TaxBandMapping() };
     }
 }

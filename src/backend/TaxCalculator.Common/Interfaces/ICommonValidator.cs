@@ -1,8 +1,12 @@
-﻿namespace TaxCalculator.Common.Interfaces
+﻿
+namespace TaxCalculator.Common.Interfaces
 {
     public interface ICommonValidator<T>
     {
-        void ValidateItem(T entity);
-        void ValidateReadItems(IEnumerable<T> entities);
+        void ValidateId(Guid id);
+        void ValidateItemAfterRead(T? result);
+        void ValidateItemBeforeRemove(T? item);
+        void ValidateItemBeforeWrite(T? item);
+        void ValidateItemsAfterRead(IEnumerable<T> items);
     }
 }

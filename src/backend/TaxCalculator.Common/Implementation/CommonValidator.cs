@@ -12,17 +12,41 @@ namespace TaxCalculator.Common.Implementation
             _errorManager = errorManager;
         }
 
-        public void ValidateItem(T entity)
+        public void ValidateId(Guid id)
         {
-            if (entity == null)
+            if (id == Guid.Empty)
+            {
+                throw _errorManager.BuildException(CommonErrorEnum.EmptyResourceId);
+            };
+        }
+
+        public void ValidateItemAfterRead(T? result)
+        {
+            if (result == null)
+            {
+                throw _errorManager.BuildException(CommonErrorEnum.ItemNotFound);
+            }
+        }
+
+        public void ValidateItemBeforeRemove(T? item)
+        {
+            if (item == null)
+            {
+                throw _errorManager.BuildException(CommonErrorEnum.RemoveUnsuccessful);
+            }
+        }
+
+        public void ValidateItemBeforeWrite(T? item)
+        {
+            if (item == null)
             {
                 throw _errorManager.BuildException(CommonErrorEnum.ItemNull);
             }
         }
 
-        public void ValidateReadItems(IEnumerable<T> entities)
+        public void ValidateItemsAfterRead(IEnumerable<T> items)
         {
-            if (entities == null || !entities.Any())
+            if (items == null || !items.Any())
             {
                 throw _errorManager.BuildException(CommonErrorEnum.NoItems);
             }

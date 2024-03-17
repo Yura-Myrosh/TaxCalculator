@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using TaxCalculator.Common.Implementation;
@@ -37,6 +38,18 @@ namespace TaxCalculator.Extensions
         {
             services.AddScoped<ICommonValidator<T>, CommonValidator<T>>();
             services.AddScoped<ICRUDService<T>, CRUDService<T>>();
+            return services;
+        }
+
+        public static IServiceCollection AddAutomapperRegistration(this IServiceCollection services, Profile[] mappingProfiles)
+        {
+            var mapper = new MapperConfiguration(mc =>
+            {
+                mc.AddProfiles(mappingProfiles);
+            }).CreateMapper();
+
+            services.AddSingleton(mapper);
+
             return services;
         }
     }

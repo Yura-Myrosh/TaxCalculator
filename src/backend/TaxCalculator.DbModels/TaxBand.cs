@@ -7,7 +7,7 @@ namespace TaxCalculator.DbModels
     {
         [Key]
         [Required]
-        public Guid Id { get; private set; } = Guid.NewGuid();
+        public Guid Id { get; set; } = Guid.NewGuid();
 
         [Required]
         [Range(0, int.MaxValue)]
