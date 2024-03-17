@@ -7,9 +7,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="13.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\TaxCalculator.Common\TaxCalculator.Common.csproj" />
     <ProjectReference Include="..\TaxCalculator.DAL\TaxCalculator.DAL.csproj" />
     <ProjectReference Include="..\TaxCalculator.DbModels\TaxCalculator.DbModels.csproj" />
+    <ProjectReference Include="..\TaxCalculator.InternalModels\TaxCalculator.InternalModels.csproj" />
   </ItemGroup>
 
 </Project>

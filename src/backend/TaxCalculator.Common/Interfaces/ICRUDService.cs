@@ -8,11 +8,11 @@ namespace TaxCalculator.Common.Interfaces
 {
     public interface ICRUDService<T>
     {
-        Task<IEnumerable<T>> ReadItems();
-        Task<T> ReadItemById(Guid id);
+        Task<IEnumerable<T>> ReadItemsAsync();
+        Task<T> ReadItemByIdAsync(Guid id);
         Task CreateAsync(T item);
-        void Delete(T item);
+        Task DeleteAsync(T item);
         Task DeleteByIdAsync(Guid id);
-        void Update(T model);
+        Task UpdateAsync(T model);
     }
 }
