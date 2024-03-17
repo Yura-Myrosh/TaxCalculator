@@ -1,0 +1,416 @@
+{
+	"info": {
+		"_postman_id": "01aa7bc3-e58d-4cdc-a381-931e623f2741",
+		"name": "TaxCalculator",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "16991969"
+	},
+	"item": [
+		{
+			"name": "v1",
+			"item": [
+				{
+					"name": "CRUD",
+					"item": [
+						{
+							"name": "Single",
+							"item": [
+								{
+									"name": "create TaxBand",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"var jsondata = pm.response.json();\r",
+													"\r",
+													"tests[\"Status code is 200\"] = responseCode.code === 200\r",
+													"\r",
+													"try{\r",
+													"    tests[\"Check lowerBound\"] = jsondata.lowerBound == 1111;\r",
+													"    tests[\"Check upperBound\"] = jsondata.upperBound == 22222;\r",
+													"    tests[\"Check rateInPercents\"] = jsondata.rateInPercents == 22;\r",
+													"\r",
+													"    pm.collectionVariables.set(\"taxBandIdToDelete\", jsondata.id)\r",
+													"}\r",
+													"catch (err){\r",
+													"    tests[\"Exception: \" + err.message + \".\"] = false\r",
+													"}"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"lowerBound\": 1111,\r\n    \"upperBound\": 22222,\r\n    \"rateInPercents\": 22\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/taxcalculator/v1",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"taxcalculator",
+												"v1"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "read TaxBand",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"var jsondata = pm.response.json();\r",
+													"\r",
+													"tests[\"Status code is 200\"] = responseCode.code === 200\r",
+													"\r",
+													"try{\r",
+													"    tests[\"Check lowerBound\"] = jsondata.lowerBound == 1111;\r",
+													"    tests[\"Check upperBound\"] = jsondata.upperBound == 22222;\r",
+													"    tests[\"Check rateInPercents\"] = jsondata.rateInPercents == 22;\r",
+													"    \r",
+													"    pm.collectionVariables.set(\"taxBandIdToDelete\", jsondata.id)\r",
+													"}\r",
+													"catch (err){\r",
+													"    tests[\"Exception: \" + err.message + \".\"] = false\r",
+													"}"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/taxcalculator/v1/:id",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"taxcalculator",
+												"v1",
+												":id"
+											],
+											"variable": [
+												{
+													"key": "id",
+													"value": "{{taxBandIdToDelete}}"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "update TaxBand",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"var jsondata = pm.response.json();\r",
+													"\r",
+													"tests[\"Status code is 200\"] = responseCode.code === 200\r",
+													"\r",
+													"try{\r",
+													"    tests[\"Check lowerBound\"] = jsondata.lowerBound == 2222;\r",
+													"    tests[\"Check upperBound\"] = jsondata.upperBound == 22222;\r",
+													"    tests[\"Check rateInPercents\"] = jsondata.rateInPercents == 22;\r",
+													"}\r",
+													"catch (err){\r",
+													"    tests[\"Exception: \" + err.message + \".\"] = false\r",
+													"}"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "PUT",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"lowerBound\": 2222,\r\n    \"upperBound\": 22222,\r\n    \"rateInPercents\": 22\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/taxcalculator/v1/:id",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"taxcalculator",
+												"v1",
+												":id"
+											],
+											"variable": [
+												{
+													"key": "id",
+													"value": "{{taxBandIdToDelete}}"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "delete TaxBand",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"\r",
+													"try{\r",
+													"    tests[\"Status code is 204\"] = responseCode.code === 204\r",
+													"\r",
+													"    pm.collectionVariables.unset(\"taxBandIdToDelete\")\r",
+													"}\r",
+													"catch(err){\r",
+													"    tests[\"Exception: \" + err.message + \".\"] = false\r",
+													"}\r",
+													"\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/taxcalculator/v1/:id",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"taxcalculator",
+												"v1",
+												":id"
+											],
+											"variable": [
+												{
+													"key": "id",
+													"value": "{{taxBandIdToDelete}}"
+												}
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "List",
+							"item": [
+								{
+									"name": "GetAll",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"var jsondata = pm.response.json();\r",
+													"\r",
+													"tests[\"Status code is 200\"] = responseCode.code === 200\r",
+													"\r",
+													"try{\r",
+													"    tests[\"Check is any\"] = jsondata.length > 0\r",
+													"}\r",
+													"catch (err){\r",
+													"    tests[\"Exception: \" + err.message + \".\"] = false\r",
+													"}"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/taxcalculator/v1",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"taxcalculator",
+												"v1"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "Calculation",
+					"item": [
+						{
+							"name": "calculateTaxes",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var jsondata = pm.response.json();\r",
+											"\r",
+											"tests[\"Status code is 200\"] = responseCode.code === 200\r",
+											"\r",
+											"try{\r",
+											"    tests[\"Check is grossAnnualSalary\"] = jsondata.grossAnnualSalary == 40000\r",
+											"    tests[\"Check is grossMonthlySalary\"] = jsondata.grossMonthlySalary - 3333.33 < 0.01\r",
+											"    tests[\"Check is netAnnualSalary\"] = jsondata.netAnnualSalary == 29000\r",
+											"    tests[\"Check is netMonthlySalary\"] = jsondata.netMonthlySalary - 2416.66 < 0.01\r",
+											"    tests[\"Check is annualTaxPaid\"] = jsondata.annualTaxPaid == 11000\r",
+											"    tests[\"Check is monthlyTaxPaid\"] = jsondata.monthlyTaxPaid - 916.66 < 0.01\r",
+											"}\r",
+											"catch (err){\r",
+											"    tests[\"Exception: \" + err.message + \".\"] = false\r",
+											"}"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/taxcalculator/v1/$calculateTaxes/:salary",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"taxcalculator",
+										"v1",
+										"$calculateTaxes",
+										":salary"
+									],
+									"variable": [
+										{
+											"key": "salary",
+											"value": "40000"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
