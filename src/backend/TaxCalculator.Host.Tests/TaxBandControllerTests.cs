@@ -74,7 +74,7 @@ namespace TaxCalculator.Host.Tests
 
             var result = await _controller.TaxBandRemove(id, CancellationToken.None);
 
-            Assert.IsType<OkResult>(result);
+            Assert.IsType<StatusCodeResult>(result);
             _taxServiceMock.Verify(s => s.RemoveTaxBandAsync(id), Times.Once);
             _cacheStore.Verify(c => c.EvictByTagAsync(Constants.SALARY_TAG, It.IsAny<CancellationToken>()), Times.Once);
             _cacheStore.Verify(c => c.EvictByTagAsync(Constants.TAXBAND_TAG, It.IsAny<CancellationToken>()), Times.Once);

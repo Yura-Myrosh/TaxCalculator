@@ -25,10 +25,7 @@ namespace TaxCalculator.Host
             AddCors(builder);
 
             var app = builder.Build();
-
             app.UseCors("ConfiguredCorsPolicy");
-            app.UseSwagger();
-            app.UseSwaggerUI();
             app.UseHttpsRedirection();
             app.UseAuthorization();
             app.UseOutputCache();

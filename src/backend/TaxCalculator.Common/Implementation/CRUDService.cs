@@ -35,6 +35,9 @@ namespace TaxCalculator.Common.Implementation
         public async Task DeleteByIdAsync(Guid id)
         {
             _validator.ValidateId(id);
+            var itemToDelete = await _repository.GetItemAsync(id);
+            _validator.ValidateItemBeforeRemove(itemToDelete);
+
             await _repository.DeleteByIdAsync(id);
             await _repository.SaveAsync();
         }

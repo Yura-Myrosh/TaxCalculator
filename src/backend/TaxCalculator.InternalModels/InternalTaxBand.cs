@@ -2,7 +2,7 @@
 {
     public class InternalTaxBand
     {
-        public Guid Id { get; private set; } = Guid.NewGuid();
+        public Guid Id { get; set; } = Guid.NewGuid();
 
         public int LowerBound { get; set; }
 
